@@ -16,13 +16,13 @@
     // the constructor
     initialize: function (options) {
       // model is passed through
-      this.note  = options.note;
+      this.model = options.note;
       this.notes = options.notes;
     },
 
     // populate the html to the dom
     render: function () {
-      this.$el.html(_.template($('#rowTemplate').html(), this.note.toJSON()));
+      this.$el.html(_.template($('#rowTemplate').html(), this.model.toJSON()));
       return this;
     },
 
@@ -31,9 +31,9 @@
       event.preventDefault();
       event.stopPropagation();
       // we would call 
-      // this.model.destroy();
+      this.model.destroy();
       // which would make a DELETE call to the server with the id of the item
-      this.notes.remove(this.note);
+      this.notes.remove(this.model);
       this.$el.remove();
     }
   });

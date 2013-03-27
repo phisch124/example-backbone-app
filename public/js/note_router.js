@@ -5,7 +5,9 @@
   "use strict";
   window.APP = window.APP || {Routers: {}, Collections: {}, Models: {}, Views: {}};
   APP.Routers.NoteRouter = Backbone.Router.extend({
-    routes: {
+    
+	//Defines mapping between routes and methods
+	routes: {
       "note/new": "create",
       "notes/index": "index",
       "note/:id/edit": "edit",
@@ -17,6 +19,8 @@
       this.index();
     },
 
+	/* Routing methods */
+	
     create: function () {
       this.currentView = new APP.Views.NoteNewView({notes: this.notes, note: new APP.Models.NoteModel()});
       $('#primary-content').html(this.currentView.render().el);
@@ -35,11 +39,19 @@
     },
 
     index: function () {
-      this.currentView = new APP.Views.NoteIndexView({notes: this.notes});
-      $('#primary-content').html(this.currentView.render().el);
-      // we would call to the index with 
-      // this.notes.fetch()
-      // to pull down the index json response to populate our collection initially
+		var currentView = this.currentView;
+
+
+		this.notes.fetch({
+			success: function(coll){
+				currentView = new APP.Views.NoteIndexView({notes: coll});
+				$('#primary-content').html(currentView.render().el);
+			},
+			error: function(){
+				console.log("error");
+			}
+		});
+		// to pull down the index json response to populate our collection initially
     }
   });
 }());

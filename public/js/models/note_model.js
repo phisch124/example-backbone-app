@@ -21,8 +21,13 @@
   
   // define the collection in the same file
   window.APP.Collections = window.APP.Collections || {};
+  
+  //Creation of Note's collection
   window.APP.Collections.NoteCollection = Backbone.Collection.extend({
     // Reference to this collection's model.
-    model: APP.Models.NoteModel
+    model: APP.Models.NoteModel,
+	
+	url: '/notes/'
   });
+  
 }());

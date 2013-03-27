@@ -12,6 +12,7 @@
   <script type="text/javascript" src="js/libs/backbone.min.js"></script>
   <script type="text/javascript" src="js/libs/bootstrap.min.js"></script>
   <!-- load our scripts -->
+  <script type="text/javascript" src="js/socket_sync.js"></script>
   <script type="text/javascript" src="js/note_router.js"></script>
   <script type="text/javascript" src="js/models/note_model.js"></script>
   <script type="text/javascript" src="js/views/note_index.js"></script>
@@ -96,9 +97,12 @@
     <p style="white-space:pre-wrap;"><%= description %></p>
   </script>
 
+  <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
     var notes = new APP.Collections.NoteCollection();
     var router = new APP.Routers.NoteRouter({notes: notes});
+	
+	//Backbone.sync = APP.createSync(io.connect());
 
     Backbone.history.start();
     // we manually pass in the initial data, but this would be called with a collection.fetch() normally
