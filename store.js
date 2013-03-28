@@ -36,7 +36,8 @@ module.exports = function(){
 		
 		fields[field][id] = value;
 		
-		callback();
+		if(typeof(callback) === 'function')
+			callback();
 	}
 
 	this.destroy = function(field, id, callback){

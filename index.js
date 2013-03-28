@@ -34,12 +34,18 @@ app.del('/notes/:id', function(req, res){
 	});
 });
 
-app.put('/notes/:id', function(req, res){
+app.post('/notes/', function(req, res){
 	var note = req.body;
 	store.put('note', note, function(id){
 		note.id = id;
 		res.send(note);
 	});
+});
+
+app.put('/notes/:id', function(req, res){
+	var note = req.body;
+	var id = note.id;
+	store.set('note', id, note);
 });
 
 server.listen(app.get('port'), function() {
