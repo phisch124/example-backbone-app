@@ -28,7 +28,7 @@ define(["app"], function(app){
         
         //Adds one note from the collection
         addOne: function (note) {
-            var view = new app.Views.NoteRow({notes: app.collections.notes, note: note});
+            var view = new app.Views.NoteRow({note: note});
             this.$el.find("tbody").append(view.render().el);
         }
     });

@@ -34,7 +34,7 @@ define(["app"], function(app){
             this.model.destroy();
             
             // makes a DELETE call to the server with the id of the item
-            app.models.notes.remove(this.model);
+            app.collections.notes.remove(this.model);
             
             // then remove the object from the DOM
             this.$el.remove();
