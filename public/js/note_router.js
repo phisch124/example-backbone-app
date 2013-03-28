@@ -43,10 +43,9 @@ define(["app"], function(app){
         index: function () {
             var currentView = this.currentView;
             
-            //TODO : move this piece of code
+            //We retreive collection's data
             app.collections.notes.fetch({
                 success: function(coll){
-                    //TODO : reusable views ?
                     currentView = new app.Views.NoteIndex();
                     $('#primary-content').html(currentView.render().el);
                 },

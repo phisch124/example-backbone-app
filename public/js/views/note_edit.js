@@ -32,17 +32,38 @@ define(["app"], function(app){
                 description: this.$el.find('textarea[name=description]').val()
             });
             
-            // we save to the server here with 
-            this.note.save();
+            /* We show that the data is being processed with a loader and avoir 
+            double click by setting disabled attr on the save button. */
+            this.error.hide();
+            this.saveButton.attr('disabled', 'disabled');
+            this.loader.show();
             
-            // redirect back to the index
-            window.location.hash = "notes/index";
+            // We store this locally for use in the callback
+            var _this = this;
+            
+            // Saves the note to the server
+            this.note.save({},{
+                success: function(){
+                    // redirect back to the index
+                    window.location.hash = "notes/index";
+                },
+                error: function(){
+                    _this.loader.hide();
+                    _this.error.show();
+                    _this.saveButton.removeAttr('disabled', '');
+                }
+            });
         },
 
         // populate the html to the dom
         render: function () {
             this.$el.html(_.template($('#formTemplate').html(), this.note.toJSON()));
             this.$el.find('h2').text('Edit Note');
+            
+            // We retreive interesting elements from the rendered content
+            this.loader = this.$el.find('.loader');
+            this.error = this.$el.find('.error');
+            this.saveButton = this.$el.find('.save');
             return this;
         }
     });
